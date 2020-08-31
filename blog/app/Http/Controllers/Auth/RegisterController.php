@@ -63,12 +63,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+	$role = Role::where('slug', 'admin')->first();
+	if(!$role){
+		dd("Role not added...add seeder class");
+	}
 	$user=User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-	 $role = Role::findOrFail('1');
+	
+	 $role = Role::findOrFail($role->id);
          $user->roles()->save($role);
         return $user;
     }
