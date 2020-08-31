@@ -12,13 +12,19 @@ class RolesTablesSeeder extends Seeder
      */
     public function run()
     {
-        Role::create([
-		'name'		 => 'User',
-		'slug'		 => 'user'
-	]);
-        Role::create([
-		'name'		 => 'Administrator',
-		'slug'		 => 'admin'
-	]);
+        $user_role = Role::where('slug', 'user')->first();
+	if(!$user_role){
+		Role::create([
+			'name'		 => 'User',
+			'slug'		 => 'user'
+		]);
+	}
+	$admin_role = Role::where('slug', 'admin')->first();
+	if(!$admin_role){
+		Role::create([
+			'name'		 => 'Administrator',
+			'slug'		 => 'admin'
+		]);
+	}
     }
 }
